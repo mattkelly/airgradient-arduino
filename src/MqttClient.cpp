@@ -23,9 +23,8 @@ bool MqttClient::begin(String uri) {
   logInfo("Init uri: " + uri);
 
   /** config esp_mqtt client */
-  esp_mqtt_client_config_t config = {
-      .uri = this->uri.c_str(),
-  };
+  esp_mqtt_client_config_t config = {};
+  config.broker.address.uri = this->uri.c_str();
 
   /** init client */
   client = esp_mqtt_client_init(&config);

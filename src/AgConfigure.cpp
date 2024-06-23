@@ -238,7 +238,7 @@ bool Configuration::parse(String data, bool isLocal) {
   String lasCtrl = jconfig[jprop_configurationControl];
   if (isLocal) {
     if (JSON.typeof_(root[jprop_configurationControl]) == "string") {
-      String ctrl = root[jprop_configurationControl];
+      const String ctrl = root[jprop_configurationControl];
       if (ctrl ==
               String(CONFIGURATION_CONTROL_NAME
                          [ConfigurationControl::ConfigurationControlBoth]) ||
@@ -274,7 +274,8 @@ bool Configuration::parse(String data, bool isLocal) {
                     jconfig[jprop_configurationControl]);
     }
 
-    if (jconfig[jprop_configurationControl] ==
+    const String ctrl = jconfig[jprop_configurationControl];
+    if (ctrl ==
         String(CONFIGURATION_CONTROL_NAME
                    [ConfigurationControl::ConfigurationControlCloud])) {
       failedMessage = "Monitor set to accept only configuration from the "
@@ -283,7 +284,8 @@ bool Configuration::parse(String data, bool isLocal) {
       return false;
     }
   } else {
-    if (jconfig[jprop_configurationControl] ==
+    const String ctrl = jconfig[jprop_configurationControl];
+    if (ctrl ==
         String(CONFIGURATION_CONTROL_NAME
                    [ConfigurationControl::ConfigurationControlLocal])) {
       failedMessage = "Cloud configure ignored";
@@ -1150,7 +1152,7 @@ void Configuration::setOfflineModeWithoutSave(bool offline) {
   _offlineMode = offline;
 }
 
-bool Configuration::isLedBarModeChanged(void) { 
+bool Configuration::isLedBarModeChanged(void) {
   bool changed = _ledBarModeChanged;
   _ledBarModeChanged = false;
   return changed;

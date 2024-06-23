@@ -2,10 +2,10 @@
 #include "AgConfigure.h"
 #include "AirGradient.h"
 #include "Libraries/Arduino_JSON/src/Arduino_JSON.h"
+#include <WiFiClient.h>
 #ifdef ESP8266
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
 #else
 #include <HTTPClient.h>
 #endif
@@ -105,9 +105,9 @@ bool AgApiClient::postToServer(String data) {
     return true;
   }
 
-  if (WiFi.isConnected() == false) {
-    return false;
-  }
+  //if (WiFi.isConnected() == false) {
+    //return false;
+  //}
 
   String uri =
       "http://hw.airgradient.com/sensors/airgradient:" + ag->deviceId() +
@@ -165,13 +165,13 @@ void AgApiClient::setAirGradient(AirGradient *ag) { this->ag = ag; }
 
 /**
  * @brief Send the package to check the connection with cloud
- * 
+ *
  * @param rssi WiFi RSSI
  * @param bootCount Boot count
  * @return true Success
  * @return false Failure
  */
-bool AgApiClient::sendPing(int rssi, int bootCount) { 
+bool AgApiClient::sendPing(int rssi, int bootCount) {
   JSONVar root;
   root["wifi"] = rssi;
   root["boot"] = bootCount;
